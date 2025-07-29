@@ -1,6 +1,7 @@
 let mousePosition = { x: 0, y: 0 };
 let mouseDown = false;
 let showCursorRadius = false;
+let showControls = false;
 
 window.addEventListener('mousemove', (event) => {
     mousePosition.x = event.clientX;
@@ -19,7 +20,20 @@ window.addEventListener('resize', () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
 });
-
+window.addEventListener('keydown', (event) => {
+    if (event.key === 'Space') {
+        if (showControls) {
+            const controlsPanel = document.getElementById('controls-panel');
+            if (controlsPanel) {
+                controlsPanel.style.display = 'none';
+            }
+            showControls = false;
+        }
+        else{
+            addControls()
+        }
+    }
+});
 
 function setupCanvas() {
     const canvas = document.getElementById('simulationCanvas');
@@ -79,11 +93,4 @@ function addControls() {
     gravitySlider.addEventListener('input', () => {
         gravityValue.textContent = gravitySlider.value;
     });
-}
-
-// Call this after DOM is loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', addControls);
-} else {
-    addControls();
 }
