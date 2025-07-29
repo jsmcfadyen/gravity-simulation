@@ -6,23 +6,6 @@ window.addEventListener('mousemove', (event) => {
     mousePosition.x = event.clientX;
     mousePosition.y = event.clientY;
 });
-window.addEventListener('touchmove', (event) => {
-    if (event.touches.length > 0) {
-        mousePosition.x = event.touches[0].clientX;
-        mousePosition.y = event.touches[0].clientY;
-    }
-}, { passive: true });
-window.addEventListener('touchstart', (event) => {
-    if (event.touches.length > 0) {
-        mousePosition.x = event.touches[0].clientX;
-        mousePosition.y = event.touches[0].clientY;
-    }
-});
-
-window.addEventListener('touchend', (event) => {
-    mouseDown = false;
-    showCursorRadius = false;
-}); 
 window.addEventListener('mousedown', (event) => {
     mouseDown = true;
     showCursorRadius = true;
@@ -30,6 +13,11 @@ window.addEventListener('mousedown', (event) => {
 window.addEventListener('mouseup', (event) => {
     mouseDown = false;
     showCursorRadius = false;
+});
+window.addEventListener('resize', () => {
+    const canvas = document.getElementById('simulationCanvas');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 });
 
 
