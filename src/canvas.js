@@ -30,7 +30,13 @@ window.addEventListener('keydown', (event) => {
             showControls = false;
         }
         else{
-            addControls()
+            let controlsPanel = document.getElementById('controls-panel');
+            if (controlsPanel) {
+                controlsPanel.style.display = 'block';
+            }else{
+                addControls()
+            }
+            showControls = true;
         }
     }
 });
