@@ -25,6 +25,7 @@ function setupCanvas() {
     const canvas = document.getElementById('simulationCanvas');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    document.body.style.overflow = 'hidden'; // To disable scrolling
     return canvas.getContext('2d');
 }
 
@@ -50,4 +51,39 @@ function render(context, particles) {
     particles.forEach(particle => {
         particle.draw(context);
     });
+}
+
+// Add controls UI
+function addControls() {
+    const controls = document.createElement('div');
+    controls.id = 'controls-panel';
+    controls.style.position = 'fixed';
+    controls.style.top = '20px';
+    controls.style.left = '20px';
+    controls.style.background = 'rgba(30,30,40,0.85)';
+    controls.style.color = '#fff';
+    controls.style.padding = '12px 18px';
+    controls.style.borderRadius = '10px';
+    controls.style.zIndex = 1000;
+    controls.style.fontFamily = 'sans-serif';
+    controls.innerHTML = `
+        <label>Gravity Strength: <input id="gravityStrength" type="range" min="0.01" max="1" step="0.01" value="0.25"></label>
+        <span id="gravityValue">0.10</span><br>
+        <button id="resetParticles">Reset</button>
+    `;
+    document.body.appendChild(controls);
+
+    // Update gravity value display
+    const gravitySlider = document.getElementById('gravityStrength');
+    const gravityValue = document.getElementById('gravityValue');
+    gravitySlider.addEventListener('input', () => {
+        gravityValue.textContent = gravitySlider.value;
+    });
+}
+
+// Call this after DOM is loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', addControls);
+} else {
+    addControls();
 }

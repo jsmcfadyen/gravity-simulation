@@ -21,9 +21,13 @@ class Particle {
     }
 
     update(particles) {
+        const gravityValue = document.getElementById('gravityValue');
+        let cursorGravity = 0.10;
+        if (gravityValue){
+            cursorGravity = gravityValue.textContent * 1.0; // Base gravity effect
+        }
         // Cursor gravity (always applies, but stronger when mouseDown)
         const cursorRadius = 300;
-        const cursorGravity = 0.02; // Base gravity effect
         const clickGravity = 0.5; // Stronger gravity when mouse is down
         const dxMouse = mousePosition.x - this.x;
         const dyMouse = mousePosition.y - this.y;
